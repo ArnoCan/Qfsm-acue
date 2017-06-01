@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2000,2001 Stefan Duffner 
+Copyright (C) 2000,2001 Stefan Duffner
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -45,17 +45,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "StateManager.h"
 #include "Selection.h"
 #include "ImportGraphviz.h"
-#include "ExportAHDL.h"
 #include "ExportEPS.h"
-#include "ExportKISS.h"
 #include "ExportSVG.h"
 #include "ExportPNG.h"
-#include "ExportVHDL.h"
-#include "ExportVVVV.h"
 #include "ExportSCXML.h"
 #include "ExportSMC.h"
 #include "ExportIODescription.h"
-#include "ExportVerilog.h"
 #include "ExportRagel.h"
 #include "ExportStateTable.h"
 #include "TableBuilderASCII.h"
@@ -124,8 +119,8 @@ MainWindow::MainWindow(QObject* parent , const char* name )
   setCentralWidget(wscroll);
 
   setAcceptDrops(true);
-  
-  
+
+
 //  QPixmap pix("qfsm_64.png", "PNG");
 //  setIcon(pix);
   QPixmap paicon((const char**)qfsm_64_xpm);
@@ -168,24 +163,16 @@ MainWindow::MainWindow(QObject* parent , const char* name )
   id_export_svg = menu_export->insertItem(tr("&SVG..."), this, SLOT(fileExportSVG()));
   id_export_png = menu_export->insertItem(tr("&PNG..."), this, SLOT(fileExportPNG()));
   menu_export->insertSeparator();
-  id_export_ahdl = menu_export->insertItem(tr("&AHDL..."), this, SLOT(fileExportAHDL()));
-  id_export_vhdl = menu_export->insertItem(tr("&VHDL..."), this, SLOT(fileExportVHDL()));
-  id_export_verilog = menu_export->insertItem(tr("V&erilog HDL..."), this,
-      SLOT(fileExportVerilog()));
-  id_export_kiss = menu_export->insertItem(tr("&KISS"), this, SLOT(fileExportKISS()));
-  menu_export->insertSeparator();
-  id_export_testbench = menu_export->insertItem(tr("VHDL &Testbench"),this,SLOT(fileExportTestbench()));
   id_export_iodescription = menu_export->insertItem(tr("I/O &Description"), this, SLOT(fileExportIODescription()));
 
   menu_export->insertSeparator();
   id_export_scxml = menu_export->insertItem(tr("SC&XML"), this, SLOT(fileExportSCXML()));
-  id_export_vvvv = menu_export->insertItem(tr("vvvv A&utomata code"), this, SLOT(fileExportVVVV()));
   menu_export->insertSeparator();
-  id_export_stascii = menu_export->insertItem(tr("State Table (ASC&II)..."), 
+  id_export_stascii = menu_export->insertItem(tr("State Table (ASC&II)..."),
       this, SLOT(fileExportSTASCII()));
-  id_export_stlat = menu_export->insertItem(tr("State Table (&Latex)..."), 
+  id_export_stlat = menu_export->insertItem(tr("State Table (&Latex)..."),
       this, SLOT(fileExportSTLatex()));
-  id_export_sthtml = menu_export->insertItem(tr("State Table (&HTML)..."), 
+  id_export_sthtml = menu_export->insertItem(tr("State Table (&HTML)..."),
       this, SLOT(fileExportSTHTML()));
   menu_export->insertSeparator();
   id_export_ragel = menu_export->insertItem(tr("&Ragel..."), this, SLOT(fileExportRagel()));
@@ -195,18 +182,18 @@ MainWindow::MainWindow(QObject* parent , const char* name )
   menu_file = new QMenu(this);
   menu_file->setMouseTracking(TRUE);
   menu_file->insertItem(*pnew, tr("&New..."), this, SLOT(fileNew()), Qt::CTRL+Qt::Key_N);
-  id_open = menu_file->insertItem(*popen, tr("&Open..."), this, SLOT(fileOpen()), 
+  id_open = menu_file->insertItem(*popen, tr("&Open..."), this, SLOT(fileOpen()),
     Qt::CTRL+Qt::Key_O);
   menu_file->insertItem(tr("Open &Recent"), menu_mru);
   menu_file->insertSeparator();
-  id_save = menu_file->insertItem(*saveset, tr("&Save"), this, SLOT(fileSave()), 
+  id_save = menu_file->insertItem(*saveset, tr("&Save"), this, SLOT(fileSave()),
     Qt::CTRL+Qt::Key_S);
   id_saveas = menu_file->insertItem(tr("Save &As..."), this, SLOT(fileSaveAs()));
   menu_file->insertSeparator();
   id_import = menu_file->insertItem(tr("&Import"), menu_import);
   id_export = menu_file->insertItem(tr("&Export"), menu_export);
   menu_file->insertSeparator();
-  id_print = menu_file->insertItem(*printset, tr("&Print..."), this, 
+  id_print = menu_file->insertItem(*printset, tr("&Print..."), this,
     SLOT(filePrint()), Qt::CTRL+Qt::Key_P);
   menu_file->insertSeparator();
   menu_file->insertItem(tr("New &Window"), control, SLOT(newWindow()) );
@@ -219,22 +206,22 @@ MainWindow::MainWindow(QObject* parent , const char* name )
   menu_edit = new QMenu(this);
   menu_edit->setCheckable(TRUE);
   menu_edit->setMouseTracking(TRUE);
-  id_undo = menu_edit->insertItem(*undoset, tr("U&ndo"), this, SLOT(editUndo()), 
+  id_undo = menu_edit->insertItem(*undoset, tr("U&ndo"), this, SLOT(editUndo()),
     Qt::CTRL+Qt::Key_Z);
   menu_edit->insertSeparator();
   id_cut = menu_edit->insertItem(*cutset, tr("C&ut"), this, SLOT(editCut()), Qt::CTRL+Qt::Key_X);
-  id_copy = menu_edit->insertItem(*copyset, tr("&Copy"), this, 
+  id_copy = menu_edit->insertItem(*copyset, tr("&Copy"), this,
     SLOT(editCopy()), Qt::CTRL+Qt::Key_C);
-  id_paste = menu_edit->insertItem(*pasteset, tr("&Paste"), this, 
+  id_paste = menu_edit->insertItem(*pasteset, tr("&Paste"), this,
     SLOT(editPaste()), Qt::CTRL+Qt::Key_V);
   id_delete = menu_edit->insertItem(tr("De&lete"), this, SLOT(editDelete()),
    Qt::Key_Delete);
   menu_edit->insertSeparator();
-  id_select = menu_edit->insertItem(*selset, tr("&Select"), this, 
+  id_select = menu_edit->insertItem(*selset, tr("&Select"), this,
     SLOT(editSelect()), Qt::CTRL+Qt::SHIFT+Qt::Key_S);
-  id_selectall = menu_edit->insertItem(tr("Select &All"), this, 
+  id_selectall = menu_edit->insertItem(tr("Select &All"), this,
     SLOT(editSelectAll()), Qt::CTRL+Qt::Key_A);
-  id_deselectall = menu_edit->insertItem(tr("&Deselect All"), this, 
+  id_deselectall = menu_edit->insertItem(tr("&Deselect All"), this,
     SLOT(editDeselectAll()), Qt::CTRL+Qt::Key_D);
   menu_edit->insertSeparator();
   menu_edit->insertItem(tr("&Options"), this, SLOT(editOptions()));
@@ -258,13 +245,13 @@ MainWindow::MainWindow(QObject* parent , const char* name )
   menu_view->insertSeparator();
   id_ioview = menu_view->insertItem(tr("&IO View"),this,SLOT(viewIOView()));
   menu_view->insertSeparator();
-  id_pan = menu_view->insertItem(*panset, tr("&Pan view"), this, 
+  id_pan = menu_view->insertItem(*panset, tr("&Pan view"), this,
     SLOT(viewPan()), Qt::CTRL+Qt::SHIFT+Qt::Key_P);
-  id_zoom = menu_view->insertItem(*zoomset, tr("&Zoom"), this, 
+  id_zoom = menu_view->insertItem(*zoomset, tr("&Zoom"), this,
     SLOT(viewZoom()), Qt::CTRL+Qt::SHIFT+Qt::Key_Z);
-  id_zoomin = menu_view->insertItem(*pzoomin, tr("Zoom &In"), this, 
+  id_zoomin = menu_view->insertItem(*pzoomin, tr("Zoom &In"), this,
     SLOT(viewZoomIn()), Qt::CTRL+Qt::Key_I);
-  id_zoomout = menu_view->insertItem(*pzoomout, tr("Zoom &Out"), this, 
+  id_zoomout = menu_view->insertItem(*pzoomout, tr("Zoom &Out"), this,
     SLOT(viewZoomOut()), Qt::CTRL+Qt::Key_U);
   id_zoom100 = menu_view->insertItem(tr("Zoom &100%"), this,
     SLOT(viewZoom100()), Qt::CTRL+Qt::Key_R);
@@ -272,22 +259,22 @@ MainWindow::MainWindow(QObject* parent , const char* name )
   // Machine
   menu_machine = new QMenu(this);
   menu_machine->setMouseTracking(TRUE);
-  id_machineedit = menu_machine->insertItem(tr("&Edit..."), this, 
+  id_machineedit = menu_machine->insertItem(tr("&Edit..."), this,
     SLOT(machineEdit()));
-  id_correctcodes = menu_machine->insertItem(tr("&Auto correct State Codes..."), this, 
+  id_correctcodes = menu_machine->insertItem(tr("&Auto correct State Codes..."), this,
                                             SLOT(machineCorrectCodes()));
-  id_machinesim = menu_machine->insertItem(*machinesimset, tr("&Simulate..."), 
+  id_machinesim = menu_machine->insertItem(*machinesimset, tr("&Simulate..."),
     this, SLOT(machineSimulate()), Qt::CTRL+Qt::SHIFT+Qt::Key_I);
   id_machineicheck = menu_machine->insertItem(tr("&Integrity Check"), this,
       SLOT(machineICheck()));
-  
+
   // State
   menu_state = new QMenu(this);
   menu_state->setCheckable(TRUE);
   menu_state->setMouseTracking(TRUE);
-  id_newstate = menu_state->insertItem(*statenewset, tr("&New"), this, 
+  id_newstate = menu_state->insertItem(*statenewset, tr("&New"), this,
     SLOT(stateNew()), Qt::CTRL+Qt::SHIFT+Qt::Key_N);
-  id_editstate = menu_state->insertItem(tr("&Edit..."), this, 
+  id_editstate = menu_state->insertItem(tr("&Edit..."), this,
       SLOT(stateEdit()));
   id_setinitial = menu_state->insertItem(tr("Set &Initial State"), this,
     SLOT(stateSetInitial()));
@@ -300,9 +287,9 @@ MainWindow::MainWindow(QObject* parent , const char* name )
   menu_trans->setMouseTracking(TRUE);
   id_newtrans = menu_trans->insertItem(*transnewset, tr("&New"), this,
     SLOT(transNew()), Qt::CTRL+Qt::SHIFT+Qt::Key_T);
-  id_edittrans = menu_trans->insertItem(tr("&Edit..."), this, 
+  id_edittrans = menu_trans->insertItem(tr("&Edit..."), this,
       SLOT(transEdit()));
-  id_trans_straight = menu_trans->insertItem(*transstraightenset, 
+  id_trans_straight = menu_trans->insertItem(*transstraightenset,
     tr("&Straighten"), this, SLOT(transStraighten()), Qt::CTRL+Qt::Key_T);
 
   // Help
@@ -327,18 +314,18 @@ MainWindow::MainWindow(QObject* parent , const char* name )
   menubar->insertItem(tr("&State"), menu_state);
   menubar->insertItem(tr("&Transition"), menu_trans);
   menubar->insertItem(tr("&Help"), menu_help);
-  
+
   // Context Menu: State
   cmenu_state = new QMenu(this);
   cmenu_state->setMouseTracking(TRUE);
-  id_csundo = cmenu_state->insertItem(*undoset, tr("U&ndo"), this, 
+  id_csundo = cmenu_state->insertItem(*undoset, tr("U&ndo"), this,
     SLOT(editUndo()), Qt::CTRL+Qt::Key_Z);
   cmenu_state->insertSeparator();
-  id_cscut = cmenu_state->insertItem(*cutset, tr("C&ut"), this, 
+  id_cscut = cmenu_state->insertItem(*cutset, tr("C&ut"), this,
     SLOT(editCut()), Qt::CTRL+Qt::Key_X);
-  id_cscopy = cmenu_state->insertItem(*copyset, tr("&Copy"), this, 
+  id_cscopy = cmenu_state->insertItem(*copyset, tr("&Copy"), this,
     SLOT(editCopy()), Qt::CTRL+Qt::Key_C);
-  id_csdelete = cmenu_state->insertItem(tr("De&lete"), this, 
+  id_csdelete = cmenu_state->insertItem(tr("De&lete"), this,
     SLOT(editDelete()), Qt::Key_Delete);
   cmenu_state->insertSeparator();
   id_ceditstate = cmenu_state->insertItem(tr("&Edit..."), this, SLOT(stateEdit()));
@@ -350,18 +337,18 @@ MainWindow::MainWindow(QObject* parent , const char* name )
   // Context Menu: Transition
   cmenu_trans = new QMenu(this);
   cmenu_trans->setMouseTracking(TRUE);
-  id_ctundo = cmenu_trans->insertItem(*undoset, tr("U&ndo"), this, SLOT(editUndo()), 
+  id_ctundo = cmenu_trans->insertItem(*undoset, tr("U&ndo"), this, SLOT(editUndo()),
     Qt::CTRL+Qt::Key_Z);
   cmenu_trans->insertSeparator();
-  id_ctcut = cmenu_trans->insertItem(*cutset, tr("C&ut"), this, 
+  id_ctcut = cmenu_trans->insertItem(*cutset, tr("C&ut"), this,
     SLOT(editCut()), Qt::CTRL+Qt::Key_X);
-  id_ctcopy = cmenu_trans->insertItem(*copyset, tr("&Copy"), this, 
+  id_ctcopy = cmenu_trans->insertItem(*copyset, tr("&Copy"), this,
     SLOT(editCopy()), Qt::CTRL+Qt::Key_C);
-  id_ctdelete = cmenu_trans->insertItem(tr("De&lete"), this, 
+  id_ctdelete = cmenu_trans->insertItem(tr("De&lete"), this,
     SLOT(editDelete()), Qt::Key_Delete);
   cmenu_trans->insertSeparator();
   id_cedittrans = cmenu_trans->insertItem(tr("&Edit..."), this, SLOT(transEdit()));
-  id_ctrans_straight = cmenu_trans->insertItem(*transstraightenset, 
+  id_ctrans_straight = cmenu_trans->insertItem(*transstraightenset,
     tr("&Straighten"), this, SLOT(transStraighten()), Qt::CTRL+Qt::Key_T);
 
   // Context Menu: ScrollView
@@ -377,11 +364,11 @@ MainWindow::MainWindow(QObject* parent , const char* name )
   fileio = new FileIO(this);
   printmanager = new PrintManager(this);
 
-  mb_changed = new QMessageBox("qfsm", 
-    tr("The file has been changed. Do you want to save it?"), 
-    QMessageBox::Information, 
+  mb_changed = new QMessageBox("qfsm",
+    tr("The file has been changed. Do you want to save it?"),
+    QMessageBox::Information,
     QMessageBox::Yes | QMessageBox::Default,
-    QMessageBox::No, 
+    QMessageBox::No,
     QMessageBox::Cancel | QMessageBox::Escape);
   mb_changed->setButtonText(QMessageBox::Yes, tr("Yes"));
   mb_changed->setButtonText(QMessageBox::No, tr("No"));
@@ -410,20 +397,10 @@ MainWindow::MainWindow(QObject* parent , const char* name )
   tabdialog->setOkButton();
   tabdialog->setCancelButton();
 
-  ahdl_export = new ExportAHDLDlgImpl(this);
-  ahdl_export->init(&doc_options);
-  ver_export = new ExportVerilogDlgImpl(this);
-  ver_export->init(&doc_options);
-  vhdl_export = new ExportVHDLDlgImpl(this);
-  vhdl_export->init(&doc_options, NULL);
   statetable_export = new ExportStateTableDlgImpl(this);
   statetable_export->init(&doc_options);
   ragel_export = new ExportRagelDlgImpl(this);
   ragel_export->init(&doc_options);
-  testbench_export = new ExportTestbenchDlgImpl(this);
-  testbench_export->init(&doc_options,NULL);
-  vvvv_export = new ExportVVVVDlgImpl(this);
-  vvvv_export->init(&doc_options,NULL);
 
   view_io =new IOViewDlgImpl(this);
   simulator = new Simulator(this);
@@ -453,7 +430,6 @@ MainWindow::MainWindow(QObject* parent , const char* name )
   connect(fileio, SIGNAL(setWaitCursor()), this, SLOT(setWaitCursor()) );
   connect(fileio, SIGNAL(setPreviousCursor()), this, SLOT(setPreviousCursor()) );
   connect(view_io,SIGNAL(closing()),this,SLOT(viewIOView()));
-  connect(vvvv_export, SIGNAL(updateCode()), this, SLOT(updateVVVV()));
 }
 
 
@@ -461,7 +437,7 @@ MainWindow::MainWindow(QObject* parent , const char* name )
 MainWindow::~MainWindow()
 {
   fileio->saveOptions(&doc_options);
- 
+
   destroyToolBar();
   delete wscroll;
   delete menubar;
@@ -477,7 +453,7 @@ MainWindow::~MainWindow()
   delete cmenu_trans;
   if (project)
     delete project;
-  
+
   delete statemanager;
   delete machinemanager;
   delete transmanager;
@@ -491,13 +467,8 @@ MainWindow::~MainWindow()
 
   delete mb_changed;
 
-  delete ahdl_export;
-  delete ver_export;
-  delete vhdl_export;
   delete statetable_export;
   delete ragel_export;
-  delete testbench_export;
-  delete vvvv_export;
 }
 
 
@@ -509,12 +480,12 @@ void MainWindow::createToolBar()
   toolbar->setMovable(true);
 
   pnew = new QPixmap((const char**)filenew);
-  tbnew = new QToolButton(*pnew, tr("New File"), tr("Creates a new file"), 
+  tbnew = new QToolButton(*pnew, tr("New File"), tr("Creates a new file"),
     this, SLOT(fileNew()), toolbar);
   toolbar->addWidget(tbnew);
 
   popen = new QPixmap((const char**)fileopen);
-  tbopen = new QToolButton(*popen, tr("Open File"), tr("Opens a file"), 
+  tbopen = new QToolButton(*popen, tr("Open File"), tr("Opens a file"),
     this, SLOT(fileOpen()), toolbar);
   toolbar->addWidget(tbopen);
 
@@ -523,52 +494,52 @@ void MainWindow::createToolBar()
   QPixmap psaveoff((const char**)filesaveoff);
   saveset = new QIcon(psave);
   saveset->setPixmap(psaveoff, QIcon::Automatic, QIcon::Disabled);
-  tbsave = new QToolButton(psave, tr("Save File"), tr("Saves this file"), 
+  tbsave = new QToolButton(psave, tr("Save File"), tr("Saves this file"),
     this, SLOT(fileSave()), toolbar);
   tbsave->setIconSet(*saveset);
   toolbar->addWidget(tbsave);
- 
+
   QPixmap pprint((const char**)fileprint);
   QPixmap pprintoff((const char**)fileprintoff);
   printset = new QIcon(pprint);
   printset->setPixmap(pprintoff, QIcon::Automatic, QIcon::Disabled);
-  tbprint = new QToolButton(pprint,tr("Print"), tr("Prints this file"), 
+  tbprint = new QToolButton(pprint,tr("Print"), tr("Prints this file"),
     this, SLOT(filePrint()), toolbar);
   tbprint->setIconSet(*printset);
   toolbar->addWidget(tbprint);
- 
+
   QPixmap pundo((const char**)editundo);
   QPixmap pundooff((const char**)editundooff);
   undoset = new QIcon(pundo);
   undoset->setPixmap(pundooff, QIcon::Automatic, QIcon::Disabled);
-  tbundo = new QToolButton(pundo,tr("Undo"), tr("Undo last action"), 
+  tbundo = new QToolButton(pundo,tr("Undo"), tr("Undo last action"),
     this, SLOT(editUndo()), toolbar);
   tbundo->setIconSet(*undoset);
   toolbar->addWidget(tbundo);
- 
+
   QPixmap pcut((const char**)editcut);
   QPixmap pcutoff((const char**)editcutoff);
   cutset = new QIcon(pcut);
   cutset->setPixmap(pcutoff, QIcon::Automatic, QIcon::Disabled);
-  tbcut = new QToolButton(pcut,tr("Cut"), tr("Cuts Selection"), 
+  tbcut = new QToolButton(pcut,tr("Cut"), tr("Cuts Selection"),
     this, SLOT(editCut()), toolbar);
   tbcut->setIconSet(*cutset);
   toolbar->addWidget(tbcut);
- 
+
   QPixmap pcopy((const char**)editcopy);
   QPixmap pcopyoff((const char**)editcopyoff);
   copyset = new QIcon(pcopy);
   copyset->setPixmap(pcopyoff, QIcon::Automatic, QIcon::Disabled);
-  tbcopy = new QToolButton(pcopy,tr("Copy"), tr("Copies Selection"), 
+  tbcopy = new QToolButton(pcopy,tr("Copy"), tr("Copies Selection"),
     this, SLOT(editCopy()), toolbar);
   tbcopy->setIconSet(*copyset);
   toolbar->addWidget(tbcopy);
- 
+
   QPixmap ppaste((const char**)editpaste);
   QPixmap ppasteoff((const char**)editpasteoff);
   pasteset = new QIcon(ppaste);
   pasteset->setPixmap(ppasteoff, QIcon::Automatic, QIcon::Disabled);
-  tbpaste = new QToolButton(ppaste,tr("Paste"), tr("Pastes the clipboard"), 
+  tbpaste = new QToolButton(ppaste,tr("Paste"), tr("Pastes the clipboard"),
     this, SLOT(editPaste()), toolbar);
   tbpaste->setIconSet(*pasteset);
   toolbar->addWidget(tbpaste);
@@ -579,17 +550,17 @@ void MainWindow::createToolBar()
   QPixmap pselectoff((const char**)selectoff);
   selset = new QIcon(pselect);
   selset->setPixmap(pselectoff, QIcon::Automatic, QIcon::Disabled);
-  tbselect = new QToolButton(pselect,tr("Select"), tr("Select objects"), 
+  tbselect = new QToolButton(pselect,tr("Select"), tr("Select objects"),
     this, SLOT(editSelect()), toolbar);
   tbselect->setIconSet(*selset);
   tbselect->setToggleButton(TRUE);
   toolbar->addWidget(tbselect);
- 
+
   QPixmap ppan((const char**)pan);
   QPixmap ppanoff((const char**)panoff);
   panset = new QIcon(ppan);
   panset->setPixmap(ppanoff, QIcon::Automatic, QIcon::Disabled);
-  tbpan = new QToolButton(ppan,tr("Pan"), tr("Pan view"), 
+  tbpan = new QToolButton(ppan,tr("Pan"), tr("Pan view"),
     this, SLOT(viewPan()), toolbar);
   tbpan->setIconSet(*panset);
   tbpan->setToggleButton(TRUE);
@@ -599,7 +570,7 @@ void MainWindow::createToolBar()
   QPixmap pzoomoff((const char**)zoomoff);
   zoomset = new QIcon(pzoom);
   zoomset->setPixmap(pzoomoff, QIcon::Automatic, QIcon::Disabled);
-  tbzoom = new QToolButton(pzoom,tr("Zoom"), tr("Switches to zoom mode"), 
+  tbzoom = new QToolButton(pzoom,tr("Zoom"), tr("Switches to zoom mode"),
     this, SLOT(viewZoom()), toolbar);
   tbzoom->setIconSet(*zoomset);
   tbzoom->setToggleButton(TRUE);
@@ -609,7 +580,7 @@ void MainWindow::createToolBar()
   QPixmap pstatenewoff((const char**)statenewoff);
   statenewset = new QIcon(pstatenew);
   statenewset->setPixmap(pstatenewoff, QIcon::Automatic, QIcon::Disabled);
-  tbstatenew = new QToolButton(pstatenew,tr("Add State"), tr("Add new states"), 
+  tbstatenew = new QToolButton(pstatenew,tr("Add State"), tr("Add new states"),
     this, SLOT(stateNew()), toolbar);
   tbstatenew->setIconSet(*statenewset);
   tbstatenew->setToggleButton(TRUE);
@@ -619,7 +590,7 @@ void MainWindow::createToolBar()
   QPixmap ptransnewoff((const char**)transnewoff);
   transnewset = new QIcon(ptransnew);
   transnewset->setPixmap(ptransnewoff, QIcon::Automatic, QIcon::Disabled);
-  tbtransnew = new QToolButton(ptransnew,tr("Add Transition"), tr("Add new transitions"), 
+  tbtransnew = new QToolButton(ptransnew,tr("Add Transition"), tr("Add new transitions"),
     this, SLOT(transNew()), toolbar);
   tbtransnew->setIconSet(*transnewset);
   tbtransnew->setToggleButton(TRUE);
@@ -629,7 +600,7 @@ void MainWindow::createToolBar()
   QPixmap pmachinesimoff((const char**)machinesimoff);
   machinesimset = new QIcon(pmachinesim);
   machinesimset->setPixmap(pmachinesimoff, QIcon::Automatic, QIcon::Disabled);
-  tbmachinesim = new QToolButton(pmachinesim,tr("Simulate"), tr("Simulates this machine"), 
+  tbmachinesim = new QToolButton(pmachinesim,tr("Simulate"), tr("Simulates this machine"),
     this, SLOT(machineSimulate()), toolbar);
   tbmachinesim->setIconSet(*machinesimset);
   tbmachinesim->setToggleButton(TRUE);
@@ -638,28 +609,28 @@ void MainWindow::createToolBar()
   toolbar->addSeparator();
 
   pzoomin = new QPixmap((const char**)zoomin);
-  tbzoomin = new QToolButton(*pzoomin,tr("Zoom In"), tr("Zooms into the view"), 
+  tbzoomin = new QToolButton(*pzoomin,tr("Zoom In"), tr("Zooms into the view"),
     this, SLOT(viewZoomIn()), toolbar);
   toolbar->addWidget(tbzoomin);
- 
+
   pzoomout = new QPixmap((const char**)zoomout);
-  tbzoomout = new QToolButton(*pzoomout,tr("Zoom Out"), tr("Zoom out of the view"), 
+  tbzoomout = new QToolButton(*pzoomout,tr("Zoom Out"), tr("Zoom out of the view"),
     this, SLOT(viewZoomOut()), toolbar);
   toolbar->addWidget(tbzoomout);
 
   QPixmap ptransstraighten((const char**)transstraighten);
   QPixmap ptransstraightenoff((const char**)transstraightenoff);
   transstraightenset = new QIcon(ptransstraighten);
-  transstraightenset->setPixmap(ptransstraightenoff, QIcon::Automatic, 
+  transstraightenset->setPixmap(ptransstraightenoff, QIcon::Automatic,
     QIcon::Disabled);
-  tbtransstraighten = new QToolButton(ptransstraighten,tr("Straighten Transitions"), 
-    tr("Straightens selected transitions"), 
+  tbtransstraighten = new QToolButton(ptransstraighten,tr("Straighten Transitions"),
+    tr("Straightens selected transitions"),
     this, SLOT(transStraighten()), toolbar);
   tbtransstraighten->setIconSet(*transstraightenset);
   toolbar->addWidget(tbtransstraighten);
 
 
-  zoomCursor = new QCursor(QPixmap((const char**)c_mag_xpm), 7, 7); 
+  zoomCursor = new QCursor(QPixmap((const char**)c_mag_xpm), 7, 7);
 }
 
 /// Destroys the toolbar
@@ -888,7 +859,7 @@ void MainWindow::editMenuAboutToShow()
 void MainWindow::setMode(int m)
 {
   doc_status.setMode(m);
-  
+
   switch (m)
   {
     case DocStatus::Select:
@@ -992,7 +963,7 @@ void MainWindow::setMode(int m)
       wscroll->viewport()->setCursor(Qt::ArrowCursor);
       break;
   }
-      
+
 }
 
 /// Repaints the scroll view
@@ -1027,11 +998,6 @@ void MainWindow::updateMenuBar()
       menu_export->setItemEnabled(id_export_ragel, FALSE);
     if (project->machine && project->machine->getType()==Text)
     {
-      menu_export->setItemEnabled(id_export_ahdl, FALSE);
-      menu_export->setItemEnabled(id_export_vhdl, FALSE);
-      menu_export->setItemEnabled(id_export_verilog, FALSE);
-      menu_export->setItemEnabled(id_export_kiss, FALSE);
-      menu_export->setItemEnabled(id_export_vvvv, TRUE);
       menu_export->setItemEnabled(id_export_scxml, TRUE);
       menu_export->setItemEnabled(id_export_smc, TRUE);
       menu_view->setItemEnabled(id_viewstateenc, FALSE);
@@ -1040,11 +1006,6 @@ void MainWindow::updateMenuBar()
     }
     else
     {
-      menu_export->setItemEnabled(id_export_ahdl, TRUE);
-      menu_export->setItemEnabled(id_export_vhdl, TRUE);
-      menu_export->setItemEnabled(id_export_verilog, TRUE);
-      menu_export->setItemEnabled(id_export_kiss, TRUE);
-      menu_export->setItemEnabled(id_export_vvvv, FALSE);
       menu_export->setItemEnabled(id_export_scxml, FALSE);
       menu_export->setItemEnabled(id_export_smc, FALSE);
       menu_view->setItemEnabled(id_viewstateenc, TRUE);
@@ -1117,7 +1078,7 @@ void MainWindow::updateMenuBar()
   numtrans = wscroll->getDrawArea()->getSelection()->countTransitions();
   numstates = wscroll->getDrawArea()->getSelection()->countStates();
 
-  if (project && project->machine && project->machine->getType()!=Text 
+  if (project && project->machine && project->machine->getType()!=Text
       && project->machine->getNumStates()>0)
   {
     menu_machine->setItemEnabled(id_machinesim, TRUE);
@@ -1219,27 +1180,27 @@ void MainWindow::updateMenuBar()
     menu_view->setItemChecked(id_viewmealyin, TRUE);
   else
     menu_view->setItemChecked(id_viewmealyin, FALSE);
-    
+
   if (doc_options.getViewMealyOut())
     menu_view->setItemChecked(id_viewmealyout, TRUE);
   else
     menu_view->setItemChecked(id_viewmealyout, FALSE);
-    
+
   if (doc_options.getViewGrid())
     menu_view->setItemChecked(id_viewgrid, TRUE);
   else
     menu_view->setItemChecked(id_viewgrid, FALSE);
-  
+
   if (doc_options.getViewIOView())
     menu_view->setItemChecked(id_ioview,TRUE);
-  else 
+  else
     menu_view->setItemChecked(id_ioview,FALSE);
-    
+
   if (doc_options.getStateShadows())
     menu_view->setItemChecked(id_viewshadows, TRUE);
   else
     menu_view->setItemChecked(id_viewshadows, FALSE);
-    
+
   if (project && !project->getUndoBuffer()->isEmpty())
   {
     menu_edit->setItemEnabled(id_undo, TRUE);
@@ -1254,7 +1215,7 @@ void MainWindow::updateMenuBar()
     cmenu_trans->setItemEnabled(id_ctundo, FALSE);
     tbundo->setEnabled(FALSE);
   }
-    
+
   if (doc_status.getMode()==DocStatus::Simulating)
   {
     menu_edit->setItemEnabled(id_undo, FALSE);
@@ -1296,7 +1257,7 @@ void MainWindow::updateMenuBar()
     tbstatenew->setEnabled(FALSE);
     tbtransnew->setEnabled(FALSE);
     tbtransstraighten->setEnabled(FALSE);
-  }  
+  }
 }
 
 /// Updates the paste tool button and menu item
@@ -1356,7 +1317,7 @@ void MainWindow::updateStatusBar()
 
   statusbar->setSelected(selected);
   emit updateStatusZoom(scale);
-  
+
 }
 
 
@@ -1367,8 +1328,6 @@ void MainWindow::updateAll()
   updateMenuBar();
   updateTitleBar();
   updateStatusBar();
-  if (vvvv_export->isVisible())
-    updateVVVV();
 }
 
 
@@ -1410,7 +1369,7 @@ void MainWindow::showContextState()
 }
 
 
-/// Shows the context menu for a transition 
+/// Shows the context menu for a transition
 void MainWindow::showContextTrans()
 {
   cmenu_trans->popup(QCursor::pos());
@@ -1424,21 +1383,21 @@ void MainWindow::showContext()
 
 /// Sends a message @a s to the status bar
 void MainWindow::sbMessage(QString s)
-{ 
-  statusbar->message(s); 
+{
+  statusbar->message(s);
 }
- 
-/// Sends a message @a s for time @a t to the status bar 
+
+/// Sends a message @a s for time @a t to the status bar
 void MainWindow::sbMessage(QString s, int t)
-{ 
-  statusbar->message(s, t); 
+{
+  statusbar->message(s, t);
 }
- 
- 
- 
- 
- 
- 
+
+
+
+
+
+
 
 
 /// Creates a new file
@@ -1551,7 +1510,7 @@ void MainWindow::fileOpen()
     }
     else
       wscroll->widget()->repaint();
-  
+
 //    menu_mru->insertItem(fileio->getActFile(), -1, 0);
       control->addMRUEntry(fileio->getActFilePath());
       fileio->saveMRU(control->getMRUList());
@@ -1568,7 +1527,7 @@ void MainWindow::fileOpen()
   wscroll->viewport()->setCursor(oldcursor2);
   */
   //qApp->restoreOverrideCursor();
-  
+
 }
 
 
@@ -1624,7 +1583,7 @@ void MainWindow::fileOpenRecent(QString fileName)
     }
     else
       wscroll->widget()->repaint();
-  
+
 //    menu_mru->insertItem(fileio->getActFile(), -1, 0);
       control->addMRUEntry(fileio->getActFilePath());
       fileio->saveMRU(control->getMRUList());
@@ -1727,7 +1686,7 @@ bool MainWindow::fileSave()
 {
   if (project)
   {
-    
+
     bool result;
     bool saveas=(fileio->getActFileName() == QString::null);
     QCursor oldcursor1 = cursor();
@@ -1752,7 +1711,7 @@ bool MainWindow::fileSave()
 
     setCursor(oldcursor1);
     wscroll->viewport()->setCursor(oldcursor2);
-    
+
 
     return result;
   }
@@ -1770,7 +1729,7 @@ bool MainWindow::fileSaveAs()
     QCursor oldcursor2 = wscroll->viewport()->cursor();
     setCursor(Qt::waitCursor);
     wscroll->viewport()->setCursor(Qt::waitCursor);
-    
+
     result =  fileio->saveFileAs(project);
 
     if (result)
@@ -1863,13 +1822,13 @@ bool MainWindow::fileExportEPS()
     bool result;
 
     project->machine->updateDefaultTransitions();
-    
+
     ExportEPS* exp = new ExportEPS(&doc_options);
     result = fileio->exportFile(project, exp, wscroll);
     delete exp;
 
     if (result)
-      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +  
+      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +
 	  tr("exported."), 2000);
 
     updateAll();
@@ -1888,13 +1847,13 @@ bool MainWindow::fileExportSVG()
     bool result;
 
     project->machine->updateDefaultTransitions();
-    
+
     ExportSVG* exp = new ExportSVG(&doc_options);
     result = fileio->exportFile(project, exp, wscroll);
     delete exp;
 
     if (result)
-      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +  
+      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +
 	  tr("exported."), 2000);
 
     updateAll();
@@ -1917,155 +1876,8 @@ bool MainWindow::fileExportPNG()
     delete exp;
 
     if (result)
-      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +  
+      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +
           tr("exported."), 2000);
-
-    updateAll();
-    return result;
-  }
-  return FALSE;
-}
-
-/// Exports the current file to an AHDL tdf file
-bool MainWindow::fileExportAHDL()
-{
-  if (project)
-  {
-    bool result;
-
-    switch(ahdl_export->exec())
-    {
-      case QDialog::Accepted:
-	doc_options.applyOptions(this);
-	break;
-      case QDialog::Rejected:
-	return TRUE;
-	break;
-    }
-
-    project->machine->updateDefaultTransitions();
-    ExportAHDL* exp = new ExportAHDL(&doc_options);
-    result = fileio->exportFile(project, exp);
-    delete exp;
-
-    if (result)
-      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +  
-	  tr("exported."), 2000);
-
-    updateAll();
-    return result;
-  }
-  return FALSE;
-}
-
-/// Exports the current file to a VHDL file
-bool MainWindow::fileExportVHDL()
-{
-  if (project)
-  {
-    bool result;
-	QString errorMessage;
-	QStringList invalidNames;
-
-    vhdl_export->init(&doc_options, project->machine);
-    switch(vhdl_export->exec())
-    {
-      case QDialog::Accepted:
-	doc_options.applyOptions(this);
-	break;
-      case QDialog::Rejected:
-	return TRUE;
-	break;
-    }
-
-    project->machine->updateDefaultTransitions();
-    ExportVHDL* exp = new ExportVHDL(&doc_options);
-	  
-    result= exp->checkMachineNames(project->machine,&doc_options,&invalidNames);
-	  
-	  if(!result)
-	  {
-		  errorMessage=tr("Export of file %1 failed!").arg(fileio->getActExportFileName())+"\n\n"+
-				           tr("The following identifiers do not match the VHDL syntax:")+"\n";
-
-		  errorMessage+=invalidNames.join("\n");
-		  
-		  Error::warningOk(errorMessage);
-
-		  statusbar->message(tr("Export of file")+" "+ fileio->getActExportFileName() + " " +  
-				  tr("failed."), 2000);
-		  delete exp;
-		  return FALSE;
-	  }
-
-    if (!project || !exp)
-      return FALSE;
-
-    if (!exp->validateMachine(project->machine))
-      return FALSE;
-
-
-      QString path_entity=vhdl_export->getEntityPath();
-      QString path_arch=vhdl_export->getArchitecturePath();
-
-      QFile ftmp(path_entity);
-      if (ftmp.exists())
-      {
-        if (Error::warningOkCancel(tr("File %1 exists. Do you want to overwrite it?").arg(path_entity))!=QMessageBox::Ok)
-        {
-          delete exp;
-          return false;
-        }
-      }
-
-
-
-      ofstream fout_entity(path_entity);
-
-      if(!fout_entity)
-      {
-        Error::warningOk(tr("Unable to write file %1!").arg(path_entity));
-        delete exp;
-        return false;
-      }
-
-      if(doc_options.getVHDLSepFiles())
-      {
-        ftmp.setFileName(path_arch);
-        if (ftmp.exists())
-        {
-          if (Error::warningOkCancel(tr("File %1 exists. Do you want to overwrite it?").arg(path_arch))!=QMessageBox::Ok)
-          {
-            delete exp;
-            return false;
-          }
-        }
-
-        ofstream fout_architecture(path_arch);
-        if(!fout_architecture)
-        {
-          Error::warningOk(tr("Unable to write file %1!").arg(path_arch));
-          delete exp;
-          return false;
-        }
-        exp->init(&fout_entity,&fout_architecture,project->machine,path_entity,NULL);
-        exp->doExport();
-      }
-      else
-      {
-        exp->init(&fout_entity,&fout_entity,project->machine,path_entity,NULL);
-        exp->doExport();
-      }
-
-
-
-    //  result = fileio->exportFile(project, exp);
-      delete exp;
-
-
-    if (result)
-      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +  
-	  tr("exported."), 2000);
 
     updateAll();
     return result;
@@ -2087,7 +1899,7 @@ bool MainWindow::fileExportIODescription()
     delete exp;
 
     if (result)
-      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +  
+      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +
           tr("exported."), 2000);
 
     updateAll();
@@ -2096,282 +1908,6 @@ bool MainWindow::fileExportIODescription()
   return FALSE;
 }
 
-/// Exports VHDL Testbench
-bool MainWindow::fileExportTestbench()
-{
-  if (project)
-  {
-    bool result;
-    int dialog_result;
-    QString errorMessage;
-    QStringList invalidNames;
-    Error err;
-    QString base_dir_name,testbench_dir_name,testvector_dir_name,package_dir_name,logfile_dir_name;
-    QDir testbenchDir,testvectorDir,packageDir,logfileDir;
-    std::ofstream *testbench_out,*testvector_out,*package_out;
-
-    testbench_export->init(&doc_options, project->machine);
-
-    while(true)
-    {
-      dialog_result=testbench_export->exec();
-
-      if(dialog_result==QDialog::Accepted)
-      {
-        doc_options.applyOptions(this);
-
-        base_dir_name=doc_options.getTestbenchBaseDirectory();
-        testbench_dir_name=doc_options.getTestbenchVHDLPath().left(doc_options.getTestbenchVHDLPath().lastIndexOf("/")+1);
-        testvector_dir_name=doc_options.getTestvectorASCIIPath().left(doc_options.getTestvectorASCIIPath().lastIndexOf("/")+1);
-        package_dir_name=doc_options.getTestpackageVHDLPath().left(doc_options.getTestpackageVHDLPath().lastIndexOf("/")+1);
-        logfile_dir_name=doc_options.getTestbenchLogfilePath().left(doc_options.getTestbenchLogfilePath().lastIndexOf("/")+1);
-
-
-        testbenchDir.setPath(base_dir_name+testbench_dir_name);
-        testvectorDir.setPath(base_dir_name+testvector_dir_name);
-        packageDir.setPath(base_dir_name+package_dir_name);
-        logfileDir.setPath(base_dir_name+logfile_dir_name);
-
-        if(project->machine->getNumOutputs()>0)
-        {
-          QMessageBox::critical(this,"qfsm",tr("The current version does not create a testbench for a Mealy-type FSM!"),QMessageBox::Ok);
-          return false;
-        }
-
-        if(!testbenchDir.exists())
-        {
-
-          dialog_result=QMessageBox::question(NULL,"qfsm",tr("%1 does not exist\n\nCreate it?").arg(base_dir_name+testbench_dir_name),QMessageBox::No|QMessageBox::Yes,QMessageBox::No);
-
-          if(dialog_result==QMessageBox::No)
-            continue;
-
-          result=testbenchDir.mkpath(base_dir_name+testbench_dir_name);
-
-          if(!result)
-          {
-            QMessageBox::critical(NULL,"qfsm",tr("Error creating directory %1!").arg(base_dir_name+testbench_dir_name),QMessageBox::Ok,QMessageBox::Ok);
-            continue;
-          }
-        }
-
-        if(!testvectorDir.exists())
-        {
-
-          dialog_result=QMessageBox::question(NULL,"qfsm",tr("%1 does not exist\n\nCreate it?").arg(base_dir_name+testvector_dir_name),QMessageBox::No|QMessageBox::Yes,QMessageBox::No);
-
-          if(dialog_result==QMessageBox::No)
-            continue;
-
-          result=testvectorDir.mkpath(base_dir_name+testvector_dir_name);
-
-          if(!result)
-          {
-            QMessageBox::critical(NULL,"qfsm",tr("Error creating directory %1!").arg(base_dir_name+testvector_dir_name),QMessageBox::Ok,QMessageBox::Ok);
-            continue;
-          }
-        }
-
-        if(!packageDir.exists())
-        {
-
-          dialog_result=QMessageBox::question(NULL,"qfsm",tr("%1 does not exist\n\nCreate it?").arg(base_dir_name+package_dir_name),QMessageBox::No|QMessageBox::Yes,QMessageBox::No);
-
-          if(dialog_result==QMessageBox::No)
-            continue;
-
-          result=packageDir.mkpath(base_dir_name+package_dir_name);
-
-          if(!result)
-          {
-            QMessageBox::critical(NULL,"qfsm",tr("Error creating directory %1!").arg(base_dir_name+package_dir_name),QMessageBox::Ok,QMessageBox::Ok);
-            continue;
-          }
-        }
-
-        if(!logfileDir.exists())
-        {
-
-          dialog_result=QMessageBox::question(NULL,"qfsm",tr("%1 does not exist\n\nCreate it?").arg(base_dir_name+logfile_dir_name),QMessageBox::No|QMessageBox::Yes,QMessageBox::No);
-
-          if(dialog_result==QMessageBox::No)
-            continue;
-
-          result=logfileDir.mkpath(base_dir_name+logfile_dir_name);
-
-          if(!result)
-          {
-            QMessageBox::critical(NULL,"qfsm",tr("Error creating directory %1!").arg(base_dir_name+logfile_dir_name),QMessageBox::Ok,QMessageBox::Ok);
-            continue;
-          }
-        }
-
-        QFile ftmp(base_dir_name+doc_options.getTestbenchVHDLPath());
-        if (ftmp.exists())
-        {
-          if (Error::warningOkCancel(tr("File %1 exists. Do you want to overwrite it?").arg(doc_options.getTestbenchVHDLPath()))!=QMessageBox::Ok)
-            return false;
-        }
-        ftmp.setFileName(base_dir_name+doc_options.getTestvectorASCIIPath());
-        if (ftmp.exists())
-        {
-          if (Error::warningOkCancel(tr("File %1 exists. Do you want to overwrite it?").arg(doc_options.getTestvectorASCIIPath()))!=QMessageBox::Ok)
-            return false;
-        }
-        ftmp.setFileName(base_dir_name+doc_options.getTestpackageVHDLPath());
-        if (ftmp.exists())
-        {
-          if (Error::warningOkCancel(tr("File %1 exists. Do you want to overwrite it?").arg(doc_options.getTestpackageVHDLPath()))!=QMessageBox::Ok)
-            return false;
-        }
-
-
-        testbench_out = new  std::ofstream((base_dir_name+doc_options.getTestbenchVHDLPath()).toLatin1().data());
-        testvector_out = new std::ofstream((base_dir_name+doc_options.getTestvectorASCIIPath()).toLatin1().data());
-        package_out = new std::ofstream((base_dir_name+doc_options.getTestpackageVHDLPath()).toLatin1().data());
-
-        if (!testbench_out)
-        {
-          Error::warningOk(tr("Unable to open file %1!").arg(doc_options.getTestbenchVHDLPath()));
-          return false;
-        }
-        if (!testvector_out)
-        {
-          Error::warningOk(tr("Unable to open file %1!").arg(doc_options.getTestvectorASCIIPath()));
-          return false;
-        }
-        if (!package_out)
-        {
-          Error::warningOk(tr("Unable to open file %1!").arg(doc_options.getTestpackageVHDLPath()));
-          return false;
-        }
-        break;
-      }
-      else return TRUE;
-      }
-
-
-    result= ExportVHDL::checkMachineNames(project->machine,&doc_options,&invalidNames);
-    if(!result)
-    {
-      errorMessage=tr("Export of file %1 failed!").arg(fileio->getActExportFileName())+"\n\n"+
-                   tr("The following identifiers do not match the VHDL syntax:")+"\n";
-      errorMessage+=invalidNames.join("\n");
-      Error::warningOk(errorMessage);
-
-      statusbar->message(tr("Export of file")+" "+ fileio->getActExportFileName() + " " +
-          tr("failed."), 2000);
-      delete testvector_out;
-      delete testbench_out;
-      delete package_out;
-      return FALSE;
-    }
-
-
-    project->machine->updateDefaultTransitions();
-
-
-    ExportTestbenchVHDL* exportTestbench = new ExportTestbenchVHDL(&doc_options);
-    ExportTestvectorASCII *exportTestvector = new ExportTestvectorASCII(&doc_options);
-
-    exportTestbench->init(testbench_out,package_out,project->machine,doc_options.getTestbenchVHDLPath(),NULL);
-    exportTestvector->init(testvector_out,project->machine,doc_options.getTestvectorASCIIPath(),NULL);
-
-    exportTestbench->doExport();
-    exportTestvector->doExport();
-
-    delete exportTestbench;
-    delete exportTestvector;
-    delete testvector_out;
-    delete testbench_out;
-    delete package_out;
-
-    if (result)
-      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +
-    tr("exported."), 2000);
-
-    updateAll();
-    return result;
-  }
-  return FALSE;
-}
-
-/// Exports the current file to a Verilog HDL file
-bool MainWindow::fileExportVerilog()
-{
-  if (project)
-  {
-    bool result;
-
-    switch(ver_export->exec())
-    {
-      case QDialog::Accepted:
-	doc_options.applyOptions(this);
-	break;
-      case QDialog::Rejected:
-	return TRUE;
-	break;
-    }
-
-    project->machine->updateDefaultTransitions();
-    ExportVerilog* exp = new ExportVerilog(&doc_options);
-    result = fileio->exportFile(project, exp);
-    delete exp;
-
-    if (result)
-      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +  
-	  tr("exported."), 2000);
-
-    updateAll();
-    return result;
-  }
-  return FALSE;
-}
-
-
-/// Exports the current file to a KISS file
-bool MainWindow::fileExportKISS()
-{
-  if (project)
-  {
-    bool result;
-
-    project->machine->updateDefaultTransitions();
-    ExportKISS* exp = new ExportKISS(&doc_options);
-    result = fileio->exportFile(project, exp);
-    delete exp;
-
-    if (result)
-      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +  
-	  tr("exported."), 2000);
-
-    updateAll();
-    return result;
-  }
-  return FALSE;
-}
-
-/// Exports the current file to the 'vvvv Automata code' window
-bool MainWindow::fileExportVVVV()
-{
-  if (project)
-  {
-    bool result=true;
-
-    project->machine->updateDefaultTransitions();
-    updateVVVV();
-    vvvv_export->show();
-    /*
-    if (result)
-      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +  
-	  tr("exported."), 2000);
-
-	  */
-    updateAll();
-    return result;
-  }
-  return false;
-}
 
 /// Exports the current file to a SCXML file
 bool MainWindow::fileExportSCXML()
@@ -2386,30 +1922,13 @@ bool MainWindow::fileExportSCXML()
     delete exp;
 
     if (result)
-      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +  
+      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +
 	  tr("exported."), 2000);
 
     updateAll();
     return result;
   }
   return FALSE;
-}
-
-
-void MainWindow::updateVVVV()
-{
-  doc_options.applyOptions(this);
-
-  ExportVVVV* exp = new ExportVVVV(&doc_options);
-  //string exp_output;
-  ostringstream ostr;
-  //result = fileio->exportFile(project, exp);
-  exp->init(&ostr ,project->machine);
-  exp->doExport();
-  vvvv_export->setText(ostr.str().c_str());
-  //qDebug("%s" ,str.str().c_str());
-  delete exp;
-
 }
 
 
@@ -2442,7 +1961,7 @@ bool MainWindow::fileExportSTASCII()
     delete tb;
 
     if (result)
-      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +  
+      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +
 	  tr("exported."), 2000);
 
 
@@ -2484,7 +2003,7 @@ bool MainWindow::fileExportSTLatex()
     delete tb;
 
     if (result)
-      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +  
+      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +
 	  tr("exported."), 2000);
 
 
@@ -2526,7 +2045,7 @@ bool MainWindow::fileExportSTHTML()
     delete tb;
 
     if (result)
-      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +  
+      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +
 	  tr("exported."), 2000);
 
     setCursor(oldcursor1);
@@ -2584,7 +2103,7 @@ bool MainWindow::fileExportRagel()
     delete exp;
 
     if (result)
-      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +  
+      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +
 	  tr("exported."), 2000);
 
     updateAll();
@@ -2607,7 +2126,7 @@ bool MainWindow::fileExportSMC()
     delete exp;
 
     if (result)
-      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +  
+      statusbar->message(tr("File")+" "+ fileio->getActExportFileName() + " " +
 	  tr("exported."), 2000);
 
     updateAll();
@@ -2710,7 +2229,7 @@ bool MainWindow::fileClose()
     setMode(DocStatus::Select);
     simulator->closeDlg();
 
-    statusbar->message(tr("File")+" "+ fileio->getActFileName() + " " +  
+    statusbar->message(tr("File")+" "+ fileio->getActFileName() + " " +
 	tr("closed."), 2000);
 
     updateAll();
@@ -2775,7 +2294,7 @@ void MainWindow::editCopy()
     int count = wscroll->getDrawArea()->getSelection()->count();
     if (count==1)
       statusbar->message(QString::number(count) + " " + tr("object copied."), 2000);
-    else 
+    else
       statusbar->message(QString::number(count) + " " + tr("objects copied."), 2000);
   }
 
@@ -2797,7 +2316,7 @@ void MainWindow::editPaste()
   QClipboard* cb = QApplication::clipboard();
 
   format = cb->data()->format();
-  
+
 
 
 //  qDebug(format);
@@ -3100,10 +2619,10 @@ void MainWindow::machineSimulate()
     {
       setMode(DocStatus::Simulating);
       wscroll->widget()->repaint();
-    }  
+    }
   }
   else
-  { 
+  {
     simulator->stopSimulation();
     setMode(DocStatus::Select);
   }
@@ -3149,7 +2668,7 @@ void MainWindow::stateEdit()
   if (s && project)
     statemanager->editState(s);
 }
-  
+
 
 /// Set selected state as initial state.
 void MainWindow::stateSetInitial()
@@ -3176,7 +2695,7 @@ void MainWindow::stateSetFinal()
 //  int otype;
   s = NULL; //(GState*)wscroll->getContextObject(otype);
   Machine* m;
-  
+
   if (!project)
     return;
   m = project->machine;
@@ -3220,7 +2739,7 @@ void MainWindow::transEdit()
   if (t && project)
     transmanager->editTransition(project->machine, t);
 }
-  
+
 /// Straighten selected transitions.
 void MainWindow::transStraighten()
 {
@@ -3258,7 +2777,7 @@ void MainWindow::helpManual()
   qfsmpath = dir.absolutePath();
 #else
   qfsmpath = QFSM_HELP_DIR;
-  dir = QDir(qfsmpath); 
+  dir = QDir(qfsmpath);
 #endif
   QFileInfo fi(dir, "qfsm.html");
   QString helpfile = fi.absoluteFilePath();

@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2000,2001 Stefan Duffner 
+Copyright (C) 2000,2001 Stefan Duffner
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -112,7 +112,7 @@ void Options::applyOptions(MainWindow* pMain)
   QString lang;
   QString path;
   QDir dir = QDir::home();
-  path = dir.absPath()+"/.qfsm/language";
+  path = dir.absolutePath()+"/.qfsm/language";
 
   QFile file(path);
   Q3TextStream fout(&file);
@@ -151,47 +151,6 @@ void Options::applyOptions(MainWindow* pMain)
   default_descriptor = pMain->getOptDisplay()->getDefaultDescriptor();
   default_descriptor = default_descriptor.replace(QRegExp("\\s"), "_");
 
-  // AHDL
-  ahdl_sync_reset = pMain->getExportAHDL()->getSyncReset();
-  ahdl_use_moore = pMain->getExportAHDL()->getUseMoore();
-
-  // VHDL
-  vhdl_symbolic_states = pMain->getExportVHDL()->getSymbolicStates();
-  vhdl_inout_names  = pMain->getExportVHDL()->getInOutNames();
-  vhdl_sync_reset = pMain->getExportVHDL()->getSyncReset();
-  vhdl_sync_enable = pMain->getExportVHDL()->getSyncEnable();
-  vhdl_neg_reset = pMain->getExportVHDL()->getNegReset();
-  vhdl_stdlogic = pMain->getExportVHDL()->getStdLogic();
-  vhdl_io_header = pMain->getExportVHDL()->getIOheader();
-  vhdl_alliance = pMain->getExportVHDL()->getAlliance();
-  vhdl_cond_notation = pMain->getExportVHDL()->getCondNotation();
-  vhdl_state_code = pMain->getExportVHDL()->getStateCode();
-  vhdl_architecture_name = pMain->getExportVHDL()->getArchitectureName();
-  vhdl_sep_files = pMain->getExportVHDL()->getSepFiles();
-  vhdl_sync_look_ahead = pMain->getExportVHDL()->getLookAhead();
-  vhdl_architecture_path = pMain->getExportVHDL()->getArchitecturePath();
-  vhdl_entity_path = pMain->getExportVHDL()->getEntityPath();
-  vhdl_state_debug = pMain->getExportVHDL()->getDebugState();
-
-
-  // Testbench
-  testbench_stdlogic=pMain->getExportTestbench()->getStdLogic();
-  testbench_synchronousreset=pMain->getExportTestbench()->getSynchronousReset();
-  testbench_synchronousenable=pMain->getExportTestbench()->getSynchronousEnable();
-  testbench_negatedreset=pMain->getExportTestbench()->getNegatedReset();
-  testbench_io_header=pMain->getExportTestbench()->getIOheader();
-  testbench_ionames=pMain->getExportTestbench()->getIONames();
-  testbench_algorithm=pMain->getExportTestbench()->getAlgorithm();
-  testbench_vhdl_path=pMain->getExportTestbench()->getTestbenchVHDLPath();
-  testvector_ascii_path=pMain->getExportTestbench()->getTestvectorASCIIPath();
-  testpackage_vhdl_path=pMain->getExportTestbench()->getPackageVHDLPath();
-  testbench_logfile_path=pMain->getExportTestbench()->getLogfilePath();
-  testbench_base_directory=pMain->getExportTestbench()->getBaseDirectory();
-
-  // Verilog
-  ver_sync_reset = pMain->getExportVerilog()->getSyncReset();
-  //ver_register_out = pMain->getExportVerilog()->getRegisterOut();
-
   // State Table
   statetable_includeout = pMain->getExportStateTable()->getIncludeOutputs();
   statetable_resolve_inverted = pMain->getExportStateTable()->getResolveInverted();
@@ -201,11 +160,6 @@ void Options::applyOptions(MainWindow* pMain)
   ragel_create_action = pMain->getExportRagel()->getCreateAction();
   ragel_lang_action = pMain->getExportRagel()->getLangAction();
   ragel_default_transitions = pMain->getExportRagel()->getAddDefaultTransitions();
-
-  // VVVV
-  vvvv_reset = pMain->getExportVVVV()->getVVVVReset();
-  vvvv_reset_event = pMain->getExportVVVV()->getVVVVResetEvent();
-  vvvv_reset_action = pMain->getExportVVVV()->getVVVVResetAction();
 
   // Printing
   print_header = pMain->getOptPrinting()->getPrintHeader();

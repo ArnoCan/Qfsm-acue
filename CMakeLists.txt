@@ -1,5 +1,6 @@
 PROJECT(qfsm)
 
+
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 #SET( CMAKE_BUILD_TYPE Debug )
@@ -100,282 +101,238 @@ INCLUDE(CPack)
 #ENDIF(RPMTools_FOUND)
 
 
-SET(moc_h 	src/AppInfo.h 	src/Const.h 	src/Convert.h 	src/DocStatus.h 	src/Draw.h 
+SET(moc_h 	src/AppInfo.h 	src/Const.h 	src/Convert.h 	src/DocStatus.h 	src/Draw.h
 	src/DrawArea.h
-	src/DRect.h 
-	src/Edit.h 
-	src/Error.h 
-	src/Export.h 
-	src/ExportAHDL.h  
-    src/ExportAHDLDlgImpl.h 
-	src/ExportKISS.h 
-	src/ExportRagel.h 
-	src/ExportRagelDlgImpl.h 
-	src/ExportStateTable.h 
-	src/ExportStateTableDlgImpl.h  
-    src/ExportVerilogDlgImpl.h 
-	src/ExportVHDL.h 
-	src/ExportPNG.h 
+	src/DRect.h
+	src/Edit.h
+	src/Error.h
+	src/Export.h
+	src/ExportRagel.h
+	src/ExportRagelDlgImpl.h
+	src/ExportStateTable.h
+	src/ExportStateTableDlgImpl.h
+	src/ExportPNG.h
 	src/ExportIODescription.h
-        src/ExportVHDLDlgImpl.h 
-        src/ExportTestbenchVHDL.h
-        src/ExportTestbenchDlgImpl.h
-        src/ExportTestvectorASCII.h
-        src/ExportVVVVDlgImpl.h	
-        src/TestvectorGenerator.h
-	src/ExportSVG.h 
-	src/ExportEPS.h 
-	src/ExportVVVV.h
+	src/ExportSVG.h
+	src/ExportEPS.h
 	src/ExportSCXML.h
-	src/FileIO.h 
-	src/GITransition.h 
-	src/GObject.h 
-	src/Grid.h 
-	src/GState.h 
-	src/GTransition.h 
-    src/ICheckDlgImpl.h 
-	src/Import.h 
-	src/ImportGraphviz.h 
-	src/IOInfo.h 
-	src/IOInfoASCII.h 
-	src/IOInfoBin.h 
-	src/IOInfoList.h 
-	src/IOInfoText.h 
+	src/FileIO.h
+	src/GITransition.h
+	src/GObject.h
+	src/Grid.h
+	src/GState.h
+	src/GTransition.h
+    src/ICheckDlgImpl.h
+	src/Import.h
+	src/ImportGraphviz.h
+	src/IOInfo.h
+	src/IOInfoASCII.h
+	src/IOInfoBin.h
+	src/IOInfoList.h
+	src/IOInfoText.h
   src/IOViewDlgImpl.h
-	src/ListBoxItems.h 
-	src/Machine.h 
-	src/MachineManager.h 
-    src/MachinePropertiesDlgImpl.h 
-	src/MainControl.h 
-	src/MainWindow.h 
-	src/MimeMachine.h  
-    src/OptDisplayDlgImpl.h 
-	src/OptGeneral.h 
-    src/OptGeneralDlgImpl.h 
-	src/Options.h 
-    src/OptPrintingDlgImpl.h 
-	src/PrintManager.h 
-	src/Project.h 
-	src/ScrollView.h 
-	src/Selection.h 
-	src/Simulator.h 
-    src/SimulatorDlgImpl.h 
-	src/StateManager.h 
-    src/StatePropertiesDlgImpl.h 
-	src/StatusBar.h 
-	src/TableBuilder.h 
-	src/TableBuilderASCII.h 
-	src/TableBuilderHTML.h 
-	src/TableBuilderLatex.h 
-	src/ToolTipSV.h 
-	src/Transition.h 
-	src/TransitionInfo.h 
-	src/TransitionInfoASCII.h 
-	src/TransitionInfoBin.h 
-	src/TransitionInfoText.h 
-	src/TransitionManager.h 
-    src/TransitionPropertiesDlgImpl.h 
-	src/Undo.h 
-	src/UndoBuffer.h 
-	src/Utils.h 
-	src/WSpinBox.h 
-	src/XMLHandler.h 
+	src/ListBoxItems.h
+	src/Machine.h
+	src/MachineManager.h
+    src/MachinePropertiesDlgImpl.h
+	src/MainControl.h
+	src/MainWindow.h
+	src/MimeMachine.h
+    src/OptDisplayDlgImpl.h
+	src/OptGeneral.h
+    src/OptGeneralDlgImpl.h
+	src/Options.h
+    src/OptPrintingDlgImpl.h
+	src/PrintManager.h
+	src/Project.h
+	src/ScrollView.h
+	src/Selection.h
+	src/Simulator.h
+    src/SimulatorDlgImpl.h
+	src/StateManager.h
+    src/StatePropertiesDlgImpl.h
+	src/StatusBar.h
+	src/TableBuilder.h
+	src/TableBuilderASCII.h
+	src/TableBuilderHTML.h
+	src/TableBuilderLatex.h
+	src/ToolTipSV.h
+	src/Transition.h
+	src/TransitionInfo.h
+	src/TransitionInfoASCII.h
+	src/TransitionInfoBin.h
+	src/TransitionInfoText.h
+	src/TransitionManager.h
+    src/TransitionPropertiesDlgImpl.h
+	src/Undo.h
+	src/UndoBuffer.h
+	src/Utils.h
+	src/WSpinBox.h
+	src/XMLHandler.h
 	src/Zoom.h)
-	
-SET(src_h src/AppInfo.h 
-	src/Const.h 
-	src/Convert.h 
-	src/DocStatus.h 
-	src/Draw.h 
+
+SET(src_h src/AppInfo.h
+	src/Const.h
+	src/Convert.h
+	src/DocStatus.h
+	src/Draw.h
 	src/DrawArea.h
-	src/DRect.h 
-	src/Edit.h 
-	src/Error.h 
-	src/Export.h 
-	src/ExportAHDL.h 
-    src/ExportAHDLDlgImpl.h 
-	src/ExportKISS.h 
-	src/ExportRagel.h 
-	src/ExportRagelDlgImpl.h 
-	src/ExportStateTable.h 
-	src/ExportStateTableDlgImpl.h 
-	src/ExportVerilog.h 
-    src/ExportVerilogDlgImpl.h 
-	src/ExportVHDL.h
-	src/ExportPNG.h 
+	src/DRect.h
+	src/Edit.h
+	src/Error.h
+	src/Export.h
+	src/ExportRagel.h
+	src/ExportRagelDlgImpl.h
+	src/ExportStateTable.h
+	src/ExportStateTableDlgImpl.h
+	src/ExportPNG.h
 	src/ExportIODescription.h
-    src/ExportVHDLDlgImpl.h 
-        src/ExportTestbenchVHDL.h
-        src/ExportTestbenchDlgImpl.h
-        src/ExportTestvectorASCII.h
-    src/ExportVVVVDlgImpl.h 
-        src/TestvectorGenerator.h
-	src/ExportSVG.h 
-	src/ExportEPS.h 
-	src/ExportVVVV.h
+	src/ExportSVG.h
+	src/ExportEPS.h
 	src/ExportSCXML.h
 	src/ExportSMC.h
-	src/FileIO.h 
-	src/GITransition.h 
-	src/GObject.h 
-	src/Grid.h 
-	src/GState.h 
-	src/GTransition.h 
-	src/ICheck.h 
-    src/ICheckDlgImpl.h 
+	src/FileIO.h
+	src/GITransition.h
+	src/GObject.h
+	src/Grid.h
+	src/GState.h
+	src/GTransition.h
+	src/ICheck.h
+    src/ICheckDlgImpl.h
     src/Import.h
-	src/ImportGraphviz.h 
-	src/IOInfo.h 
-	src/IOInfoASCII.h 
-	src/IOInfoBin.h 
-	src/IOInfoList.h 
-	src/IOInfoText.h 
-  src/IOViewDlgImpl.h 
-	src/ListBoxItems.h 
-	src/Machine.h 
-	src/MachineManager.h 
-    src/MachinePropertiesDlgImpl.h 
-	src/MainControl.h 
-	src/MainWindow.h 
-	src/MimeMachine.h 
-    src/OptDisplayDlgImpl.h 
-	src/OptGeneral.h 
-    src/OptGeneralDlgImpl.h 
-	src/Options.h 
-    src/OptPrintingDlgImpl.h 
-	src/PrintManager.h 
-	src/Project.h 
-	src/ScrollView.h 
-	src/Selection.h 
-	src/Simulator.h 
-    src/SimulatorDlgImpl.h 
-	src/State.h 
-	src/StateManager.h 
-    src/StatePropertiesDlgImpl.h 
-	src/StatusBar.h 
-	src/TableBuilder.h 
-	src/TableBuilderASCII.h 
-	src/TableBuilderHTML.h 
-	src/TableBuilderLatex.h 
-	src/ToolTipSV.h 
-	src/Transition.h 
-	src/TransitionInfo.h 
-	src/TransitionInfoASCII.h 
-	src/TransitionInfoBin.h 
-	src/TransitionInfoText.h 
-	src/TransitionManager.h 
-    src/TransitionPropertiesDlgImpl.h 
-	src/Undo.h 
-	src/UndoBuffer.h 
-	src/Utils.h 
-	src/WSpinBox.h 
-	src/XMLHandler.h 
+	src/ImportGraphviz.h
+	src/IOInfo.h
+	src/IOInfoASCII.h
+	src/IOInfoBin.h
+	src/IOInfoList.h
+	src/IOInfoText.h
+  src/IOViewDlgImpl.h
+	src/ListBoxItems.h
+	src/Machine.h
+	src/MachineManager.h
+    src/MachinePropertiesDlgImpl.h
+	src/MainControl.h
+	src/MainWindow.h
+	src/MimeMachine.h
+    src/OptDisplayDlgImpl.h
+	src/OptGeneral.h
+    src/OptGeneralDlgImpl.h
+	src/Options.h
+    src/OptPrintingDlgImpl.h
+	src/PrintManager.h
+	src/Project.h
+	src/ScrollView.h
+	src/Selection.h
+	src/Simulator.h
+    src/SimulatorDlgImpl.h
+	src/State.h
+	src/StateManager.h
+    src/StatePropertiesDlgImpl.h
+	src/StatusBar.h
+	src/TableBuilder.h
+	src/TableBuilderASCII.h
+	src/TableBuilderHTML.h
+	src/TableBuilderLatex.h
+	src/ToolTipSV.h
+	src/Transition.h
+	src/TransitionInfo.h
+	src/TransitionInfoASCII.h
+	src/TransitionInfoBin.h
+	src/TransitionInfoText.h
+	src/TransitionManager.h
+    src/TransitionPropertiesDlgImpl.h
+	src/Undo.h
+	src/UndoBuffer.h
+	src/Utils.h
+	src/WSpinBox.h
+	src/XMLHandler.h
 	src/Zoom.h
 
 )
-	
-SET(src_cxx src/AppInfo.cpp 
-	src/Convert.cpp 
-	src/DocStatus.cpp 
+
+SET(src_cxx src/AppInfo.cpp
+	src/Convert.cpp
+	src/DocStatus.cpp
 	src/Draw.cpp
 	src/DrawArea.cpp
-	src/DRect.cpp 
-	src/Edit.cpp 
-	src/Error.cpp 
-	src/Export.cpp 
-	src/ExportAHDL.cpp 
-	src/ExportAHDLDlgImpl.cpp 
-	src/ExportKISS.cpp 
-	src/ExportRagel.cpp 
-	src/ExportRagelDlgImpl.cpp   
-	src/ExportStateTable.cpp 
-	src/ExportStateTableDlgImpl.cpp 
-	src/ExportVerilog.cpp 
-    src/ExportVerilogDlgImpl.cpp 
-	src/ExportVHDL.cpp
-	src/ExportPNG.cpp 
+	src/DRect.cpp
+	src/Edit.cpp
+	src/Error.cpp
+	src/Export.cpp
+	src/ExportRagel.cpp
+	src/ExportRagelDlgImpl.cpp
+	src/ExportStateTable.cpp
+	src/ExportStateTableDlgImpl.cpp
+	src/ExportPNG.cpp
 	src/ExportIODescription.cpp
-    src/ExportVHDLDlgImpl.cpp 
-        src/ExportTestbenchVHDL.cpp
-        src/ExportTestbenchDlgImpl.cpp
-        src/ExportTestvectorASCII.cpp
-	src/ExportVVVVDlgImpl.cpp 
-	src/ExportVVVV.cpp
 	src/ExportSCXML.cpp
 	src/ExportSMC.cpp
-        src/TestvectorGenerator.cpp
-	src/FileIO.cpp 
-	src/ExportSVG.cpp 
-	src/ExportEPS.cpp 
-	src/GITransition.cpp 
-	src/GObject.cpp 
-	src/Grid.cpp 
-	src/GState.cpp 
-	src/GTransition.cpp 
-	src/ICheck.cpp 
-    src/ICheckDlgImpl.cpp 
-    src/Import.cpp 
-	src/ImportGraphviz.cpp 
-	src/IOInfo.cpp 
-	src/IOInfoASCII.cpp 
-	src/IOInfoBin.cpp 
-	src/IOInfoList.cpp 
-	src/IOInfoText.cpp 
-  src/IOViewDlgImpl.cpp 
-	src/ListBoxItems.cpp 
-	src/Machine.cpp 
-	src/MachineManager.cpp 
-    src/MachinePropertiesDlgImpl.cpp 
-	src/main.cpp 
-	src/MainControl.cpp 
-	src/MainWindow.cpp 
-	src/MimeMachine.cpp 
-    src/OptDisplayDlgImpl.cpp 
-	src/OptGeneral.cpp 
-    src/OptGeneralDlgImpl.cpp 
-	src/Options.cpp 
-    src/OptPrintingDlgImpl.cpp 
-	src/PrintManager.cpp 
-	src/Project.cpp 
-	src/ScrollView.cpp 
-	src/Selection.cpp 
-	src/Simulator.cpp 
-    src/SimulatorDlgImpl.cpp 
-	src/State.cpp 
-	src/StateManager.cpp 
-    src/StatePropertiesDlgImpl.cpp 
-	src/StatusBar.cpp 
-	src/TableBuilder.cpp 
-	src/TableBuilderASCII.cpp 
-	src/TableBuilderHTML.cpp 
-	src/TableBuilderLatex.cpp 
-	src/ToolTipSV.cpp 
-	src/Transition.cpp 
-	src/TransitionInfo.cpp 
-	src/TransitionInfoASCII.cpp 
-	src/TransitionInfoBin.cpp 
-	src/TransitionInfoText.cpp 
-	src/TransitionManager.cpp 
-    src/TransitionPropertiesDlgImpl.cpp 
-	src/Undo.cpp 
-	src/UndoBuffer.cpp 
-	src/Utils.cpp 
-	src/WSpinBox.cpp 
-	src/XMLHandler.cpp 
+	src/FileIO.cpp
+	src/ExportSVG.cpp
+	src/ExportEPS.cpp
+	src/GITransition.cpp
+	src/GObject.cpp
+	src/Grid.cpp
+	src/GState.cpp
+	src/GTransition.cpp
+	src/ICheck.cpp
+    src/ICheckDlgImpl.cpp
+    src/Import.cpp
+	src/ImportGraphviz.cpp
+	src/IOInfo.cpp
+	src/IOInfoASCII.cpp
+	src/IOInfoBin.cpp
+	src/IOInfoList.cpp
+	src/IOInfoText.cpp
+  src/IOViewDlgImpl.cpp
+	src/ListBoxItems.cpp
+	src/Machine.cpp
+	src/MachineManager.cpp
+    src/MachinePropertiesDlgImpl.cpp
+	src/main.cpp
+	src/MainControl.cpp
+	src/MainWindow.cpp
+	src/MimeMachine.cpp
+    src/OptDisplayDlgImpl.cpp
+	src/OptGeneral.cpp
+    src/OptGeneralDlgImpl.cpp
+	src/Options.cpp
+    src/OptPrintingDlgImpl.cpp
+	src/PrintManager.cpp
+	src/Project.cpp
+	src/ScrollView.cpp
+	src/Selection.cpp
+	src/Simulator.cpp
+    src/SimulatorDlgImpl.cpp
+	src/State.cpp
+	src/StateManager.cpp
+    src/StatePropertiesDlgImpl.cpp
+	src/StatusBar.cpp
+	src/TableBuilder.cpp
+	src/TableBuilderASCII.cpp
+	src/TableBuilderHTML.cpp
+	src/TableBuilderLatex.cpp
+	src/ToolTipSV.cpp
+	src/Transition.cpp
+	src/TransitionInfo.cpp
+	src/TransitionInfoASCII.cpp
+	src/TransitionInfoBin.cpp
+	src/TransitionInfoText.cpp
+	src/TransitionManager.cpp
+    src/TransitionPropertiesDlgImpl.cpp
+	src/Undo.cpp
+	src/UndoBuffer.cpp
+	src/Utils.cpp
+	src/WSpinBox.cpp
+	src/XMLHandler.cpp
 	src/Zoom.cpp
 )
 
-SET(src_ui 
-        src/ExportAHDLDlg.ui
-        src/ExportAHDLDlg.ui
+SET(src_ui
 	src/ExportRagelDlg.ui
 	src/ExportStateTableDlg.ui
-	src/ExportTestbenchDlg.ui
-	src/ExportVerilogDlg.ui
-	src/ExportVHDLDlg.ui
-	src/ExportVVVVDlg.ui
 	src/ICheckDlg.ui
-  	src/IOViewDlg.ui 
+  	src/IOViewDlg.ui
 	src/MachinePropertiesDlg.ui
 	src/OptDisplayDlg.ui
 	src/OptGeneralDlg.ui
@@ -386,11 +343,11 @@ SET(src_ui
 )
 
 IF(WIN32)
-   SET(src_cxx 
+   SET(src_cxx
                 ${src_cxx}
                 desktop/qfsm.rc
       )
-   SET(src_h 
+   SET(src_h
                 ${src_h}
                 desktop/resource.h
       )

@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2000,2001 Stefan Duffner 
+Copyright (C) 2000,2001 Stefan Duffner
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -21,7 +21,7 @@ Qt 4 Port by Rainer Strobel
 added Qt:: to all constants
 changed QList.getFirst calls to QList.front
 
-modified method ExportVHDL to switch between 
+modified method ExportVHDL to switch between
 ExportVHDL and ExportVHDLFHA class
 
 in constructor:
@@ -76,16 +76,10 @@ All buttons must be added to the toolbar by calling addWidget.
 #include "OptGeneralDlgImpl.h"
 #include "OptDisplayDlgImpl.h"
 #include "OptPrintingDlgImpl.h"
-#include "ExportVHDLDlgImpl.h"
-#include "ExportVerilogDlgImpl.h"
-#include "ExportAHDLDlgImpl.h"
 #include "ExportStateTableDlgImpl.h"
 #include "ExportRagelDlgImpl.h"
 #include "IOViewDlgImpl.h"
-#include "ExportTestbenchDlgImpl.h"
-#include "ExportTestbenchVHDL.h"
 #include "ExportTestvectorASCII.h"
-#include "ExportVVVVDlgImpl.h"
 
 
 //class QTranslator;
@@ -124,28 +118,18 @@ class MainWindow : public QMainWindow
     OptDisplayDlgImpl* getOptDisplay() { return opt_display; }
     /// Returns the tab dialog for the printing options
     OptPrintingDlgImpl* getOptPrinting() { return opt_printing; }
-    /// Returns the AHDL export dialog 
-    ExportAHDLDlgImpl* getExportAHDL() { return ahdl_export; }
-    /// Returns the VHDL export dialog 
-    ExportVHDLDlgImpl* getExportVHDL() { return vhdl_export; }
-        /// Returns the VHDL export dialog
-    ExportTestbenchDlgImpl* getExportTestbench() { return testbench_export; }
-    /// Returns the Verilog export dialog 
-    ExportVerilogDlgImpl* getExportVerilog() { return ver_export; }
-    /// Returns the State table export dialog 
+    /// Returns the State table export dialog
     ExportStateTableDlgImpl* getExportStateTable() {return statetable_export;}
     /// Returns the Ragel export dialog
     ExportRagelDlgImpl* getExportRagel() { return ragel_export; }
-    /// Returns the VVVV export dialog 
-    ExportVVVVDlgImpl* getExportVVVV() { return vvvv_export; }
-    /// Sets the string with the language 
-    void setLanguage(QString s) { language = s; 
+    /// Sets the string with the language
+    void setLanguage(QString s) { language = s;
       opt_general->setLanguage(language);}
-    /// Gets the string with the language 
+    /// Gets the string with the language
     QString getLanguage() { return language; }
     void updateIOView(Machine*);
     bool runDragOperation(bool force_copy);
- 
+
 //    void repaintView() { wscroll->viewport()->repaint(); };
     /// Returns TRUE if the shift key is pressed otherwise FALSE
     bool shiftPressed() { return shift_pressed; }
@@ -304,13 +288,7 @@ private:
     int id_export_eps;		///< Menu id 'File->Export->EPS'
     int id_export_svg;		///< Menu id 'File->Export->SVG'
     int id_export_png;      ///< Menu id 'File->Export->PNG'
-    int id_export_ahdl;		///< Menu id 'File->Export->AHDL'
-    int id_export_vhdl;		///< Menu id 'File->Export->VDHL'
     int id_export_iodescription;   ///< Menu id 'File->Export->IO Description'
-    int id_export_testbench;   /// <Menu id 'File->Export->VHDL Testbench'
-    int id_export_verilog;	///< Menu id 'File->Export->Verilog HDL'
-    int id_export_kiss;		///< Menu id 'File->Export->KISS'
-    int id_export_vvvv;		///< Menu id 'File->Export->vvvv Automata code'
     int id_export_scxml;	///< Menu id 'File->Export->SCXML'
     int id_export_stascii;	///< Menu id 'File->Export->ASCII state table'
     int id_export_stlat;	///< Menu id 'File->Export->Latex state table'
@@ -383,12 +361,12 @@ private:
     /// Status bar
     StatusBar* statusbar;
     /// Doc status
-    DocStatus doc_status;   
+    DocStatus doc_status;
     /// Options
     Options doc_options;
     /// Edit object
     Edit* edit;
-    
+
     /// Tabdialog (options)
     Q3TabDialog* tabdialog;
     /// General options dialog
@@ -397,20 +375,10 @@ private:
     OptDisplayDlgImpl* opt_display;
     /// Printing options dialog
     OptPrintingDlgImpl* opt_printing;
-    /// VHDL export options dialog
-    ExportVHDLDlgImpl* vhdl_export;
-    /// Verilog export options dialog
-    ExportVerilogDlgImpl* ver_export;
-    /// AHDL export options dialog
-    ExportAHDLDlgImpl* ahdl_export;
     /// State table export options dialog
     ExportStateTableDlgImpl* statetable_export;
     /// Ragel export options dialog
     ExportRagelDlgImpl* ragel_export;
-    /// Testbench export options dialog
-    ExportTestbenchDlgImpl *testbench_export;
-    /// Testbench export options dialog
-    ExportVVVVDlgImpl *vvvv_export;
 
     /// IO view dialog
     IOViewDlgImpl* view_io;
@@ -453,7 +421,6 @@ private:
     void updateMenuBar();
     void updateTitleBar();
     void updateStatusBar();
-    void updateVVVV();
 
     void menuItemActivated(int id);
     void editMenuAboutToShow();
@@ -461,7 +428,7 @@ private:
     void showContextTrans();
     void showContext();
 
-    void sbMessage(QString s); 
+    void sbMessage(QString s);
     void sbMessage(QString s, int t);
     void setWaitCursor();
     void setPreviousCursor();
@@ -476,14 +443,8 @@ private:
     bool fileExportEPS();
     bool fileExportSVG();
     bool fileExportPNG();
-    bool fileExportAHDL();
-    bool fileExportVHDL();
     bool fileExportIODescription();
-    bool fileExportVerilog();
-    bool fileExportKISS();
     bool fileExportSCXML();
-    bool fileExportVVVV();
-    bool fileExportTestbench();
     bool fileExportSTASCII();
     bool fileExportSTLatex();
     bool fileExportSTHTML();

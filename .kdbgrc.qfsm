@@ -1,0 +1,54 @@
+[Breakpoint 0]
+Enabled=true
+File=/home/stefan/prog/qfsm/src/IOInfo.h
+Line=171
+Temporary=false
+
+[Breakpoint 1]
+Enabled=true
+File=/home/stefan/prog/qfsm/src/IOInfo.h
+Line=174
+Temporary=false
+
+[Breakpoint 2]
+Enabled=true
+File=/home/stefan/prog/qfsm/src/IOInfo.h
+Line=176
+Temporary=false
+
+[Breakpoint 3]
+Enabled=true
+File=/home/stefan/prog/qfsm/src/IOInfo.h
+Line=178
+Temporary=false
+
+[Breakpoint 4]
+Enabled=true
+File=/home/stefan/prog/qfsm/src/ImportGraphviz.cpp
+Line=129
+Temporary=false
+
+[General]
+DebuggerCmdStr=
+DriverName=GDB
+FileVersion=1
+OptionsSelected=
+ProgramArgs=
+TTYLevel=7
+WorkingDirectory=
+
+[Memory]
+ColumnWidths=80,0
+NumExprs=0
+
+[Watches]
+Expr0=lab
+Expr1=label
+Expr2=labelin
+Expr3=labelout
+Expr4=nname
+Expr5=enname
+Expr6=G
+Expr7=bb
+Expr8=mtype
+Expr9=mtype_final
